@@ -1,0 +1,22 @@
+version: '3'
+services:
+  beetroot:
+    image: beetroot
+    container_name: beetroot_caddy
+    build:
+      context: ../exercise02/
+    expose:
+      - "${PORT1}:8080"
+    volumes:
+      - ./.secretFile.txt:/tmp/.secretFile.txt
+    environment:
+      - TZ=Europe/Oslo
+      - HackerLeetC0d3="test"
+  
+  caddy:
+    image: caddy:2.6
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile

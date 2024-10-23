@@ -1,0 +1,22 @@
+version: '3'
+services:
+  beetroot:
+    image: beetroot
+    build:
+      context: ../exercise02/beetroot
+    expose:
+      - "${PORT1}:8080"
+    volumes:
+      - ./.secretFile.txt:/tmp/.secretFile.txt
+    environment:
+      - TZ=Europe/Oslo
+      - HackerLeetC0d3="test"
+  
+  apache:
+    image: httpd:2.4.56
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+

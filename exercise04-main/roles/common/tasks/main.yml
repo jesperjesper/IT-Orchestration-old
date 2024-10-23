@@ -1,0 +1,48 @@
+---
+- name: Add Docker repository
+  yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/centos/9/$basearch/stable
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://download.docker.com/linux/centos/gpg
+    repo_gpgcheck: true
+    sslverify: true
+    state: present
+
+- name: Install Docker dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - device-mapper-persistent-data
+    - lvm2
+    - python-devel
+    - python3
+    - python-pip
+    - python3-pip
+
+- name: install docker
+  yum:
+    name:
+      - docker-ce
+      - docker-ce-cli 
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+- name: install pip docker
+  pip:
+    name: 
+      - docker
+      - urllib3<2
+    state: present
+
+- name: install pip docker
+  pip:
+    name: 
+      - requests
+    state: present

@@ -1,0 +1,25 @@
+- hosts: redis
+  become: true
+  roles:
+    - common
+    - redis
+   
+
+- hosts: mariadb
+  become: true
+  roles:
+    - common
+    - mariadb
+
+
+- hosts: ctfd
+  become: true
+  roles:
+    - common
+    - ctfd
+
+- hosts: nginx
+  become: true
+  roles:
+    - common
+    - nginx

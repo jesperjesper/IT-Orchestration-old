@@ -1,0 +1,40 @@
+---
+# - name: Pull nginx
+#   shell: sudo docker pull nginx
+
+# - name: Create Nginx container
+#   become: yes
+#   shell: docker run -d --name nginx_reverse_proxy -p 80:80 -v /etc/nginx/conf.d:/etc/nginx/conf.d -v /var/log/nginx:/var/log/nginx --restart always nginx
+
+# - name: Copy nginx configuration
+#   become: yes
+#   template:
+#     src: ../templates/nginx.conf.j2
+#     dest: /etc/nginx/conf.d/default.conf
+#     mode: 0644
+#     owner: root
+#     group: root
+#     force: yes
+- name: Pull Nginx Docker image
+  docker_image:
+    name: nginx:latest
+    source: pull
+
+- name: Copy Nginx configuration
+  template:
+    src: nginx.conf.j2
+    dest: /home/vagrant/nginx.conf
+
+- name: Create Nginx container
+  docker_container:
+    name: nginx_reverse_proxy
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /home/vagrant/nginx.conf:/etc/nginx/conf.d/default.conf
+    restart_policy: always
+    state: started
+
+
+

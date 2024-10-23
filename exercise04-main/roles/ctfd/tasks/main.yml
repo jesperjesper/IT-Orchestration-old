@@ -1,0 +1,14 @@
+- name: Create ctfd container
+  docker_container:
+    name: ctfd
+    image: ctfd/ctfd:latest
+    ports:
+      - "8000:8000"
+    env:
+      DATABASE_URL: "mysql+pymysql://ctfd:ctfd@192.168.56.18/ctfd"
+      REDIS_URL: "redis://192.168.56.17:6379/0"
+      REVERSE_PROXY: "true"
+    volumes:
+      - ctfd-data:/opt/CTFd/data
+    restart_policy: always
+    state: started
