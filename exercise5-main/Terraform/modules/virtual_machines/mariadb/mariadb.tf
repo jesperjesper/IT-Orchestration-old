@@ -30,7 +30,7 @@ resource "openstack_compute_instance_v2" "mariadb" {
       - docker-ce-cli
 
     ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDMUSG95vyDpsGegIPaBOVIqESvM4zvbyRUBCAIMcHJ simpsekundaer@gmail.com
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDMUSG95vyDpsGegIPaBOVIqESvM4zvbyRUBCAIMcHJ **@gmail.com
 
     runcmd:
       - sudo dnf update -y
